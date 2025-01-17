@@ -11,6 +11,7 @@ import RegisterScreen from '../screens/auth/registerScreen';
 import VerifyScreen from '../screens/auth/verifyScreen';
 import NewPasswordScreen from '../screens/auth/newPasswordScreen';
 import CompleteProfileScreen from '../screens/auth/completeProfileScreen';
+import LocationScreen from '../screens/auth/locationScreen';
 
 
 // Import screens - Main App
@@ -46,6 +47,7 @@ function AuthNavigator() {
       <Stack.Screen name="Verify" component={VerifyScreen} />
       <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
       <Stack.Screen name="CompleteProfile" component={CompleteProfileScreen} />
+      <Stack.Screen name='Location' component={LocationScreen} /> 
     </Stack.Navigator>
   );
 }

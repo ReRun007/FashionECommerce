@@ -93,7 +93,7 @@ export default function CompleteProfileScreen({ navigation }) {
         <View style={styles.buttonContainer}>
           <Button
             title="Complete Profile"
-            onPress={() => navigation.navigate('MainApp')}
+            onPress={() => navigation.navigate('Location')}
           />
         </View>
       </View>
