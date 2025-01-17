@@ -14,6 +14,7 @@ export const COLORS = {
   textSecondary: '#666666',// เทาเข้ม - ข้อความรอง
   textLight: '#999999',    // เทา - ข้อความที่ไม่เน้น
   textInverse: '#FFFFFF',  // ขาว - ข้อความบนพื้นหลังเข้ม
+  textLink: '#67513b', // น้ำตาล - ข้อความลิงก์
 
   // Border Colors
   border: '#E5E5E5',       // เทาอ่อน - เส้นขอบทั่วไป
