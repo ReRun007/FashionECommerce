@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     color: COLORS.textInverse,
   },
   secondaryButtonText: {
-    color: COLORS.textPrimary,
+    color: COLORS.textLink,
   },
   disabledButtonText: {
     color: COLORS.textLight,

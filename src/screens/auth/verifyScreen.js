@@ -5,7 +5,7 @@ import Button from '../../components/common/button';
 import BackButton from '../../components/common/backButton';
 import TextLink from '../../components/common/textLink';
 
-export default function VerifyScreen({ route }) {
+export default function VerifyScreen({ route, navigation  }) {
   const email = route.params?.email || 'example@email.com';
   const [code, setCode] = useState(['', '', '', '']);
   const inputRefs = useRef([]);
@@ -65,7 +65,7 @@ export default function VerifyScreen({ route }) {
       <View style={{ alignItems: 'center' }}>
         <Button
           title="Verify"
-          onPress={() => {}}
+          onPress={() => navigation.navigate('CompleteProfile')}
         />
       </View>
     </View>

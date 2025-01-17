@@ -11,9 +11,15 @@ export default function Input({
   secureTextEntry,
   keyboardType,
   autoCapitalize,
-  isPassword
+  isPassword,
+  borderRadius = 32 // Add default value of 32
 }) {
   const [showPassword, setShowPassword] = React.useState(false);
+
+  const inputStyle = {
+    ...styles.input,
+    borderRadius: borderRadius // Apply custom border radius
+  };
 
   if (isPassword) {
     return (
@@ -21,7 +27,7 @@ export default function Input({
         <Text style={styles.label}>{label}</Text>
         <View style={styles.passwordContainer}>
           <TextInput
-            style={[styles.input, styles.passwordInput]}
+            style={[inputStyle, styles.passwordInput]}
             placeholder={placeholder}
             value={value}
             onChangeText={onChangeText}
@@ -46,7 +52,7 @@ export default function Input({
     <View style={styles.inputGroup}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
-        style={styles.input}
+        style={inputStyle}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
@@ -70,7 +76,6 @@ const styles = StyleSheet.create({
     height: 48,
     borderWidth: 1,
     borderColor: COLORS.border,
-    borderRadius: 32,
     paddingHorizontal: 16,
     fontSize: 16,
     color: COLORS.textPrimary,
