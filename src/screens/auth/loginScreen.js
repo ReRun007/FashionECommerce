@@ -39,7 +39,7 @@ export default function LoginScreen({ navigation }) {
         <View style={styles.forgotPassword}>
           <TextLink 
             text="Forgot Password?"
-            onPress={() => navigation.navigate('ForgotPassword')}
+            onPress={() => navigation.navigate('NewPassword')}
           />
         </View>
 
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
-    marginTop: 60,
+    marginTop: 40,
     marginBottom: 40,
   },
   title: {

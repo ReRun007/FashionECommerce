@@ -65,7 +65,8 @@ export default function RegisterScreen({ navigation }) {
                 <View style={{ alignItems: 'center' }}>
                     <Button
                         title="Sign Up"
-                        onPress={() => navigation.navigate('MainApp')}
+                        // onPress={() => navigation.navigate('MainApp')}
+                        onPress={() => navigation.navigate('Verify')}
                     />
                 </View>
 
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     header: {
-        marginTop: 60,
+        marginTop: 40,
         marginBottom: 40,
     },
     title: {

@@ -8,6 +8,9 @@ import { COLORS } from '../constants/colors';
 // Import screens - Auth
 import LoginScreen from '../screens/auth/loginScreen';
 import RegisterScreen from '../screens/auth/registerScreen';
+import VerifyScreen from '../screens/auth/verifyScreen';
+import NewPasswordScreen from '../screens/auth/newPasswordScreen';
+
 
 // Import screens - Main App
 import HomeScreen from '../screens/home/homeScreen';
@@ -39,6 +42,8 @@ function AuthNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="Verify" component={VerifyScreen} />
+      <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
     </Stack.Navigator>
   );
 }
