@@ -1,0 +1,245 @@
+{
+  "users": {
+    "$userId": {
+      "name": "string",
+      "email": "string",
+      "phoneNumber": "string",
+      "gender": "string",
+      "profileImage": "string",
+      "loginType": "string", // 'email', 'facebook', 'google'
+      "socialId": "string", // ID จาก Facebook/Google
+      "location": {
+        "address": "string",
+        "latitude": "number",
+        "longitude": "number"
+      },
+      "savedLocations": {
+        "$locationId": {
+          "name": "string", // เช่น "บ้าน", "ที่ทำงาน"
+          "address": "string",
+          "latitude": "number",
+          "longitude": "number"
+        }
+      },
+      "paymentMethods": {
+        "$cardId": {
+          "cardType": "string",
+          "lastFourDigits": "string",
+          "expiryDate": "string",
+          "cardHolderName": "string",
+          "isDefault": "boolean"
+        }
+      },
+      "referralCode": "string",
+      "referredBy": "string", // referralCode ของคนที่ชวนมา
+      "notificationSettings": {
+        "orderUpdates": "boolean",
+        "chatMessages": "boolean",
+        "promotions": "boolean"
+      },
+      "fcmTokens": {
+        "$tokenId": {
+          "token": "string",
+          "device": "string",
+          "lastUsed": "timestamp"
+        }
+      },
+      "createdAt": "timestamp",
+      "updatedAt": "timestamp"
+    }
+  },
+
+  "categories": {
+    "$categoryId": {
+      "name": "string",
+      "image": "string",
+      "parentCategory": "string", // สำหรับ sub-categories
+      "order": "number"
+    }
+  },
+
+  "products": {
+    "$productId": {
+      "name": "string",
+      "description": "string",
+      "price": "number",
+      "categoryId": "string",
+      "images": {
+        "$imageId": {
+          "url": "string",
+          "order": "number"
+        }
+      },
+      "variations": {
+        "sizes": {
+          "$sizeId": {
+            "name": "string",
+            "stocks": {
+              "$colorId": {
+                "quantity": "number",
+                "price": "number"
+              }
+            }
+          }
+        },
+        "colors": {
+          "$colorId": {
+            "name": "string",
+            "colorCode": "string",
+            "image": "string"
+          }
+        }
+      },
+      "rating": {
+        "average": "number",
+        "count": "number"
+      },
+      "stockQuantity": "number",
+      "createdAt": "timestamp",
+      "updatedAt": "timestamp"
+    }
+  },
+
+  "reviews": {
+    "$productId": {
+      "$reviewId": {
+        "userId": "string",
+        "orderId": "string",
+        "rating": "number",
+        "comment": "string",
+        "images": {
+          "$imageId": "string" // URL
+        },
+        "likes": {
+          "$userId": "timestamp"
+        },
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp"
+      }
+    }
+  },
+
+  "coupons": {
+    "$couponId": {
+      "code": "string",
+      "type": "string", // 'percentage', 'fixed'
+      "value": "number",
+      "minPurchase": "number",
+      "maxDiscount": "number",
+      "startDate": "timestamp",
+      "endDate": "timestamp",
+      "usageLimit": "number",
+      "usedCount": "number",
+      "categoryRestrictions": {
+        "$categoryId": true
+      },
+      "productRestrictions": {
+        "$productId": true
+      },
+      "userRestrictions": {
+        "$userId": true
+      }
+    }
+  },
+
+  "orders": {
+    "$orderId": {
+      "userId": "string",
+      "items": {
+        "$productId": {
+          "quantity": "number",
+          "size": "string",
+          "color": "string",
+          "pricePerUnit": "number"
+        }
+      },
+      "subtotal": "number",
+      "discount": {
+        "couponId": "string",
+        "amount": "number"
+      },
+      "shippingFee": "number",
+      "totalAmount": "number",
+      "shippingAddress": {
+        "address": "string",
+        "latitude": "number",
+        "longitude": "number"
+      },
+      "paymentMethod": {
+        "type": "string", // 'credit_card', 'bank_transfer'
+        "cardId": "string", // ถ้าเป็นบัตรเครดิต
+        "status": "string" // 'pending', 'paid', 'failed'
+      },
+      "deliveryStatus": {
+        "status": "string", // 'processing', 'shipping', 'delivered'
+        "trackingNumber": "string",
+        "courier": "string",
+        "estimatedDelivery": "timestamp",
+        "updates": {
+          "$updateId": {
+            "status": "string",
+            "location": "string",
+            "timestamp": "timestamp"
+          }
+        }
+      },
+      "createdAt": "timestamp",
+      "updatedAt": "timestamp"
+    }
+  },
+
+  "notifications": {
+    "$userId": {
+      "$notificationId": {
+        "type": "string", // 'order', 'chat', 'promotion'
+        "title": "string",
+        "body": "string",
+        "data": {
+          "orderId": "string",
+          "chatId": "string"
+        },
+        "isRead": "boolean",
+        "createdAt": "timestamp"
+      }
+    }
+  },
+
+  "referralRewards": {
+    "$referralId": {
+      "referrerId": "string",
+      "referredId": "string",
+      "status": "string", // 'pending', 'completed'
+      "reward": {
+        "type": "string", // 'coupon', 'points'
+        "value": "number"
+      },
+      "createdAt": "timestamp"
+    }
+  },
+
+  "chats": {
+    "$chatId": {
+      "userId": "string",
+      "adminId": "string",
+      "messages": {
+        "$messageId": {
+          "senderId": "string",
+          "type": "string", // 'text', 'image', 'voice'
+          "content": {
+            "text": "string",
+            "url": "string",
+            "duration": "number"
+          },
+          "isRead": "boolean",
+          "createdAt": "timestamp"
+        }
+      },
+      "lastMessage": {
+        "type": "string",
+        "content": "string",
+        "createdAt": "timestamp"
+      },
+      "createdAt": "timestamp"
+    }
+  }
+}

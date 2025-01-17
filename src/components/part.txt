@@ -1,0 +1,28 @@
+src/
+├── assets/
+│   ├── icons/
+│
+├── components/
+│   ├── auth/
+│   ├── checkout/
+│   ├── common/
+│   └── product/
+│
+├── screens/
+│   ├── auth/
+│   ├── cart/
+│   ├── chat/
+│   ├── home/
+│   ├── orders/
+│   ├── product/
+│   ├── profile/
+│
+├── hooks/
+│
+├── navigation/
+│
+├── services/
+│
+├── utils/
+│
+├── constants/

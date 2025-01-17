@@ -55,7 +55,7 @@ export default function Button({
 const styles = StyleSheet.create({
   button: {
     height: 50,
-    width: '90%',
+    width: '100%',
     borderRadius: 90,
     justifyContent: 'center',
     alignItems: 'center',
