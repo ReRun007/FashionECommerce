@@ -32,7 +32,7 @@ export default function LoginScreen({ navigation }) {
           label="Password"
           value={password}
           onChangeText={setPassword}
-          placeholder="up to 8 characters"
+          placeholder="••••••••••••••"
           isPassword
         />
 
