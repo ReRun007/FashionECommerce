@@ -28,6 +28,7 @@ import { tabScreenOptions } from './tabNavigator';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
 function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={tabScreenOptions}>
