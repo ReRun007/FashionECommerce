@@ -1,110 +1,130 @@
-// src/screens/home/homeScreen.js
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Image } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, TextInput, Dimensions } from 'react-native';
 import { COLORS } from '../../constants/colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import SearchBar from '../../components/product/searchBar';
+import TabBar from '../../components/product/tabBar';
+import Products from '../../components/product/products';
+
+
+const { width } = Dimensions.get('window');
 
 export default function HomeScreen() {
-  // สร้าง dummy data สำหรับทดสอบ
+  const [selectedTab, setSelectedTab] = useState('All');
+
+  // ข้อมูลจำลองสำหรับ Category
   const categories = [
-    { id: 1, name: 'T-shirt', icon: '👕' },
-    { id: 2, name: 'Pant', icon: '👖' },
-    { id: 3, name: 'Dress', icon: '👗' },
-    { id: 4, name: 'Jacket', icon: '🧥' },
+    { id: 1, name: 'T-Shirt', icon: require('../../assets/icons/tshirt.png') },
+    { id: 2, name: 'Pant', icon: require('../../assets/icons/pant.png') },
+    { id: 3, name: 'Dress', icon: require('../../assets/icons/dress.png') },
+    { id: 4, name: 'Jacket', icon: require('../../assets/icons/jacket.png') },
   ];
 
+  // ข้อมูลจำลองสำหรับ Flash Sale
   const flashSaleItems = [
-    { id: 1, name: 'Brown Jacket', price: 83.97, rating: 4.1 },
-    { id: 2, name: 'Brown Suits', price: 120.00, rating: 4.5 },
-    { id: 3, name: 'Brown Jacket', price: 83.97, rating: 4.1 },
-    { id: 4, name: 'Yellow Shirt', price: 120.00, rating: 4.4 },
+    {
+      id: 1,
+      name: 'Brown Jacket',
+      price: 83.97,
+      rating: 4.9,
+      image: require('../../assets/images/product1.png')
+    },
+    {
+      id: 2,
+      name: 'Brown Suite',
+      price: 120.00,
+      rating: 5.0,
+      image: require('../../assets/images/product2.png')
+    },
+    {
+      id: 3,
+      name: 'Brown Jacket',
+      price: 83.97,
+      rating: 4.9,
+      image: require('../../assets/images/product3.png')
+    },
+    {
+      id: 4,
+      name: 'Yellow Shirt',
+      price: 120.00,
+      rating: 5.0,
+      image: require('../../assets/images/product4.png')
+    },
   ];
 
   return (
     <ScrollView style={styles.container}>
       {/* Header with Location */}
       <View style={styles.header}>
-        <View style={styles.locationContainer}>
-          <Ionicons name="location-outline" size={20} color={COLORS.primary} />
+        <TouchableOpacity style={styles.locationButton}>
+          <Ionicons name="location-outline" size={24} color={COLORS.textPrimary} />
           <Text style={styles.locationText}>New York, USA</Text>
-          <Ionicons name="chevron-down-outline" size={20} color={COLORS.primary} />
-        </View>
-        <TouchableOpacity>
-          <Ionicons name="notifications-outline" size={24} color={COLORS.primary} />
+          <Ionicons name="chevron-down" size={24} color={COLORS.textPrimary} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.notificationButton}>
+          <Ionicons name="notifications-outline" size={24} color={COLORS.textPrimary} />
         </TouchableOpacity>
       </View>
 
       {/* Search Bar */}
-      <View style={styles.searchContainer}>
-        <Ionicons name="search" size={20} color={COLORS.textLight} />
-        <TextInput 
-          style={styles.searchInput}
-          placeholder="Search"
-          placeholderTextColor={COLORS.textLight}
-        />
-      </View>
+      <SearchBar 
+      onSearch={(text) => console.log(text)}
+      onFilter={() => console.log('filter pressed')}
+    />
 
       {/* New Collection Banner */}
       <View style={styles.bannerContainer}>
-        <Image 
-          source={require('../../assets/banner.jpg')}
+        <Image
+          source={require('../../assets/images/banner.png')}
           style={styles.bannerImage}
+          resizeMode="cover"
         />
         <View style={styles.bannerContent}>
           <Text style={styles.bannerTitle}>New Collection</Text>
-          <TouchableOpacity style={styles.bannerButton}>
-            <Text style={styles.bannerButtonText}>Shop Now</Text>
+          <Text style={styles.bannerSubtitle}>Discount 50% for{'\n'}the first transaction</Text>
+          <TouchableOpacity style={styles.shopNowButton}>
+            <Text style={styles.shopNowText}>Shop Now</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Categories */}
-      <View style={styles.sectionContainer}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Category</Text>
-          <TouchableOpacity>
-            <Text style={styles.seeAllText}>See All</Text>
-          </TouchableOpacity>
-        </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {categories.map((category) => (
-            <TouchableOpacity key={category.id} style={styles.categoryItem}>
-              <Text style={styles.categoryIcon}>{category.icon}</Text>
-              <Text style={styles.categoryName}>{category.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>Category</Text>
+        <TouchableOpacity>
+          <Text style={styles.seeAllText}>See All</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Flash Sale */}
-      <View style={styles.sectionContainer}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Flash Sale</Text>
-          <TouchableOpacity>
-            <Text style={styles.seeAllText}>See All</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoriesContainer}>
+        {categories.map((category) => (
+          <TouchableOpacity key={category.id} style={styles.categoryItem}>
+            <View style={styles.categoryIconContainer}>
+              <Image source={category.icon} style={styles.categoryIcon} />
+            </View>
+            <Text style={styles.categoryName}>{category.name}</Text>
           </TouchableOpacity>
+        ))}
+      </ScrollView>
+
+      {/* Flash Sale */}
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>Flash Sale</Text>
+        <View style={styles.timerContainer}>
+          <Text style={styles.closingText}>Closing in:</Text>
+          <Text style={styles.timerText}>02 : 12 : 56</Text>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {flashSaleItems.map((item) => (
-            <TouchableOpacity key={item.id} style={styles.productCard}>
-              <Image 
-                source={require('../../assets/product-placeholder.jpg')}
-                style={styles.productImage}
-              />
-              <View style={styles.productInfo}>
-                <Text style={styles.productName}>{item.name}</Text>
-                <View style={styles.productMeta}>
-                  <Text style={styles.productPrice}>${item.price}</Text>
-                  <View style={styles.ratingContainer}>
-                    <Ionicons name="star" size={12} color={COLORS.warning} />
-                    <Text style={styles.ratingText}>{item.rating}</Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
       </View>
+
+      {/* Flash Sale Tabs */}
+      <TabBar
+      tabs={['All', 'Newest', 'Popular', 'Man', 'Woman', 'Kids']}
+      selectedTab={selectedTab}
+      onTabPress={setSelectedTab}
+    />
+
+      {/* Flash Sale Products Grid */}
+      <Products items={flashSaleItems} />
     </ScrollView>
   );
 }
@@ -119,36 +139,31 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
+    paddingTop: 24,
   },
-  locationContainer: {
+  locationButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 4,
   },
   locationText: {
     fontSize: 16,
+    color: COLORS.textPrimary,
     fontWeight: '500',
-    marginHorizontal: 4,
-    color: COLORS.textPrimary,
   },
-  searchContainer: {
-    flexDirection: 'row',
+  notificationButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: COLORS.surfaceLight,
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.searchBackground,
-    margin: 16,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-  },
-  searchInput: {
-    flex: 1,
-    paddingVertical: 12,
-    marginLeft: 8,
-    color: COLORS.textPrimary,
   },
   bannerContainer: {
     margin: 16,
-    borderRadius: 12,
+    height: 180,
+    borderRadius: 16,
     overflow: 'hidden',
-    height: 160,
   },
   bannerImage: {
     width: '100%',
@@ -159,90 +174,82 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   bannerTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: COLORS.textInverse,
+    color: COLORS.textPrimary,
     marginBottom: 8,
   },
-  bannerButton: {
-    backgroundColor: COLORS.buttonPrimary,
+  bannerSubtitle: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    marginBottom: 16,
+  },
+  shopNowButton: {
+    backgroundColor: COLORS.primary,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    borderRadius: 6,
+    borderRadius: 20,
+    alignSelf: 'flex-start',
   },
-  bannerButtonText: {
+  shopNowText: {
     color: COLORS.textInverse,
-    fontWeight: '600',
-  },
-  sectionContainer: {
-    marginVertical: 16,
+    fontSize: 14,
+    fontWeight: '500',
   },
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 16,
-    marginBottom: 12,
+    marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: COLORS.textPrimary,
   },
   seeAllText: {
-    color: COLORS.primary,
-    fontWeight: '500',
+    fontSize: 14,
+    color: COLORS.textLink,
+  },
+  categoriesContainer: {
+    paddingLeft: 16,
+    marginBottom: 24,
   },
   categoryItem: {
     alignItems: 'center',
-    marginLeft: 16,
-    width: 70,
+    marginRight: 24,
+  },
+  categoryIconContainer: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: COLORS.surfaceLight,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   categoryIcon: {
-    fontSize: 32,
-    marginBottom: 4,
+    width: 24,
+    height: 24,
+    tintColor: COLORS.textPrimary,
   },
   categoryName: {
     fontSize: 12,
+    color: COLORS.textPrimary,
+  },
+  timerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  closingText: {
+    fontSize: 12,
     color: COLORS.textSecondary,
   },
-  productCard: {
-    width: 150,
-    marginLeft: 16,
-    backgroundColor: COLORS.surfaceLight,
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  productImage: {
-    width: '100%',
-    height: 150,
-  },
-  productInfo: {
-    padding: 8,
-  },
-  productName: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: COLORS.textPrimary,
-    marginBottom: 4,
-  },
-  productMeta: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  productPrice: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: COLORS.primary,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ratingText: {
+  timerText: {
     fontSize: 12,
-    color: COLORS.textLight,
-    marginLeft: 4,
+    color: COLORS.textPrimary,
+    fontWeight: '500',
   },
 });
