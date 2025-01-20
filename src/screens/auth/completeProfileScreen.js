@@ -41,7 +41,7 @@ export default function CompleteProfileScreen({ navigation }) {
           label="Name"
           value={name}
           onChangeText={setName}
-          placeholder="John Doe"
+          placeholder=" Name"
         />
 
         <View style={styles.phoneInput}>

@@ -5,7 +5,7 @@ import Button from '../../components/common/button';
 import BackButton from '../../components/common/backButton';
 import TextLink from '../../components/common/textLink';
 
-export default function VerifyScreen({ route, navigation  }) {
+export default function VerifyScreen({ route, navigation }) {
   const email = route.params?.email || 'example@email.com';
   const [code, setCode] = useState(['', '', '', '']);
   const inputRefs = useRef([]);
@@ -30,7 +30,7 @@ export default function VerifyScreen({ route, navigation  }) {
   return (
     <View style={styles.container}>
       <BackButton />
-      
+
       <View style={styles.header}>
         <Text style={styles.title}>Verify Code</Text>
         <Text style={styles.subtitle}>
@@ -40,25 +40,26 @@ export default function VerifyScreen({ route, navigation  }) {
 
       <View style={styles.codeContainer}>
         {code.map((digit, index) => (
-          <TextInput
-            key={index}
-            ref={ref => inputRefs.current[index] = ref}
-            style={styles.codeInput}
-            value={digit}
-            onChangeText={text => handleCodeChange(text, index)}
-            onKeyPress={e => handleKeyPress(e, index)}
-            keyboardType="numeric"
-            maxLength={1}
-            placeholder='-'
-          />
+          <View key={index} style={styles.inputContainer}>
+            {!digit && <Text style={styles.dash}>-</Text>}
+            <TextInput
+              ref={ref => inputRefs.current[index] = ref}
+              style={[styles.codeInput, !digit && styles.transparentText]}
+              value={digit}
+              onChangeText={text => handleCodeChange(text, index)}
+              onKeyPress={e => handleKeyPress(e, index)}
+              keyboardType="numeric"
+              maxLength={1}
+            />
+          </View>
         ))}
       </View>
 
       <View style={styles.resendContainer}>
         <Text style={styles.resendText}>Didn't receive OTP? </Text>
-        <TextLink 
+        <TextLink
           text="Resend code"
-          onPress={() => {}}
+          onPress={() => { }}
         />
       </View>
 
@@ -101,15 +102,35 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 30,
   },
-  codeInput: {
+  inputContainer: {
     width: 65,
     height: 50,
+    position: 'relative',
+  },
+  codeInput: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 25,
     textAlign: 'center',
     fontSize: 18,
     color: COLORS.textPrimary,
+    padding: 0,
+    backgroundColor: 'transparent',
+  },
+  dash: {
+    width: '100%',
+    height: '100%',
+    textAlign: 'center',
+    lineHeight: 50,
+    color: COLORS.textSecondary,
+    fontSize: 18,
+    backgroundColor: COLORS.background,
+  },
+  transparentText: {
+    color: 'transparent'
   },
   resendContainer: {
     flexDirection: 'row',

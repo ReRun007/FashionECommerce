@@ -26,7 +26,7 @@ export default function RegisterScreen({ navigation }) {
                     label="Name"
                     value={name}
                     onChangeText={setName}
-                    placeholder="John Doe"
+                    placeholder=" Name"
                 />
 
                 <Input

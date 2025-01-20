@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, Modal, TouchableOpacity } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { COLORS } from '../../constants/colors';
@@ -9,21 +9,33 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
-const LATITUDE_DELTA = 0.02;
+const LATITUDE_DELTA = 0.001;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export default function LocationScreen({ navigation }) {
     const { loading, location, address, requestLocationPermission } = useLocation();
+    const [showModal, setShowModal] = useState(false);
 
     const handleAllowLocation = async () => {
         const granted = await requestLocationPermission();
         if (granted) {
-            //   navigation.navigate('Login');
+            setShowModal(true);
         }
     };
 
     const handleEnterManually = () => {
-        navigation.navigate('Login');
+        navigation.navigate('EnterLocation');
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleConfirmLocation = () => {
+        setShowModal(false);
+        setTimeout(() => {
+            navigation.navigate('Login');
+        }, 300); 
     };
 
     const mapRegion = location ? {
@@ -63,7 +75,7 @@ export default function LocationScreen({ navigation }) {
 
             {/* Map Modal */}
             <Modal
-                visible={!!location}
+                visible={showModal && !!location}
                 transparent
                 animationType="fade"
             >
@@ -75,7 +87,7 @@ export default function LocationScreen({ navigation }) {
                             </Text>
                             <TouchableOpacity
                                 style={styles.closeButton}
-                                onPress={() => navigation.navigate('Login')}
+                                onPress={handleCloseModal}
                             >
                                 <Ionicons name="close" size={24} color={COLORS.textPrimary} />
                             </TouchableOpacity>
@@ -102,11 +114,9 @@ export default function LocationScreen({ navigation }) {
                         <View style={styles.confirmButton}>
                             <Button
                                 title="Confirm Location"
-                                onPress={() => navigation.navigate('Login')}
-                            //   style={styles.confirmButton}
+                                onPress={handleConfirmLocation}
                             />
                         </View>
-
                     </View>
                 </View>
             </Modal>
