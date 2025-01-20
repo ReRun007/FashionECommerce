@@ -9,7 +9,9 @@ import Products from '../../components/product/products';
 
 const { width } = Dimensions.get('window');
 
-export default function HomeScreen() {
+export default function HomeScreen({ route }) {
+  const { address } = route.params || {};
+  // console.log(address);
   const [selectedTab, setSelectedTab] = useState('All');
 
   // ข้อมูลจำลองสำหรับ Category
@@ -58,7 +60,7 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <TouchableOpacity style={styles.locationButton}>
           <Ionicons name="location-outline" size={24} color={COLORS.textPrimary} />
-          <Text style={styles.locationText}>New York, USA</Text>
+          <Text style={styles.locationText} numberOfLines={2}>{address}</Text>
           <Ionicons name="chevron-down" size={24} color={COLORS.textPrimary} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.notificationButton}>
@@ -147,10 +149,11 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   locationText: {
-    fontSize: 16,
+    fontSize: 14,
     color: COLORS.textPrimary,
-    fontWeight: '500',
-  },
+    maxWidth: width * 0.4, // จำกัดความกว้างให้เป็นครึ่งจอ
+    ellipsizeMode: 'tail' 
+},
   notificationButton: {
     width: 40,
     height: 40,

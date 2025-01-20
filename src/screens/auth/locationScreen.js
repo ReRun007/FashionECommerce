@@ -15,6 +15,7 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 export default function LocationScreen({ navigation }) {
     const { loading, location, address, requestLocationPermission } = useLocation();
     const [showModal, setShowModal] = useState(false);
+    
 
     const handleAllowLocation = async () => {
         const granted = await requestLocationPermission();
@@ -34,7 +35,7 @@ export default function LocationScreen({ navigation }) {
     const handleConfirmLocation = () => {
         setShowModal(false);
         setTimeout(() => {
-            navigation.navigate('Login');
+            navigation.navigate('MainApp', { screen: 'Home', params: { address: address } });
         }, 300); 
     };
 
