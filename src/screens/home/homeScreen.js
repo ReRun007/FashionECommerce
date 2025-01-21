@@ -1,22 +1,43 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, TextInput, Dimensions } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, TextInput, Dimensions, FlatList } from 'react-native';
 import { COLORS } from '../../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SearchBar from '../../components/product/searchBar';
 import TabBar from '../../components/product/tabBar';
 import Products from '../../components/product/products';
 
-
 const { width } = Dimensions.get('window');
 
 export default function HomeScreen({ route, navigation }) {
-
   const { address, addressDetails } = route.params ?? { 
     address: 'กรุณาเลือกที่อยู่',
     addressDetails: null
-};
-  console.log('HomeScreen route params:', route.params);
+  };
   const [selectedTab, setSelectedTab] = useState('All');
+  const [activeSlide, setActiveSlide] = useState(0);
+  const flatListRef = useRef(null);
+
+  // ข้อมูล Banner
+  const banners = [
+    {
+      id: '1',
+      image: require('../../assets/images/banner.png'),
+      title: 'New Collection',
+      subtitle: 'Discount 50% for the first transaction'
+    },
+    {
+      id: '2',
+      image: require('../../assets/images/banner.png'),
+      title: 'Summer Sale',
+      subtitle: 'Get up to 70% off on summer items'
+    },
+    {
+      id: '3',
+      image: require('../../assets/images/banner.png'),
+      title: 'Special Offer',
+      subtitle: 'Free shipping on orders over $50'
+    }
+  ];
 
   // ข้อมูลจำลองสำหรับ Category
   const categories = [
@@ -58,6 +79,29 @@ export default function HomeScreen({ route, navigation }) {
     },
   ];
 
+  const renderBannerItem = ({ item }) => (
+    <View style={styles.bannerContainer}>
+      <Image
+        source={item.image}
+        style={styles.bannerImage}
+        resizeMode="cover"
+      />
+      <View style={styles.bannerContent}>
+        <Text style={styles.bannerTitle}>{item.title}</Text>
+        <Text style={styles.bannerSubtitle}>{item.subtitle}</Text>
+        <TouchableOpacity style={styles.shopNowButton}>
+          <Text style={styles.shopNowText}>Shop Now</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  const handleScroll = (event) => {
+    const slideSize = event.nativeEvent.layoutMeasurement.width;
+    const index = Math.floor(event.nativeEvent.contentOffset.x / slideSize);
+    setActiveSlide(index);
+  };
+
   return (
     <ScrollView style={styles.container}>
       {/* Header with Location */}
@@ -75,23 +119,34 @@ export default function HomeScreen({ route, navigation }) {
       {/* Search Bar */}
       <SearchBar />
 
-      {/* New Collection Banner */}
-      <View style={styles.bannerContainer}>
-        <Image
-          source={require('../../assets/images/banner.png')}
-          style={styles.bannerImage}
-          resizeMode="cover"
+      {/* Sliding Banners */}
+      <View>
+        <FlatList
+          ref={flatListRef}
+          data={banners}
+          renderItem={renderBannerItem}
+          keyExtractor={(item) => item.id}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={handleScroll}
+          snapToAlignment="center"
+          decelerationRate="fast"
         />
-        {/* <View style={styles.bannerContent}>
-          <Text style={styles.bannerTitle}>New Collection</Text>
-          <Text style={styles.bannerSubtitle}>Discount 50% for{'\n'}the first transaction</Text>
-          <TouchableOpacity style={styles.shopNowButton}>
-            <Text style={styles.shopNowText}>Shop Now</Text>
-          </TouchableOpacity>
-        </View> */}
+        <View style={styles.pagination}>
+          {banners.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.paginationDot,
+                index === activeSlide && styles.paginationDotActive
+              ]}
+            />
+          ))}
+        </View>
       </View>
 
-      {/* Categories */}
+      {/* Rest of the content remains the same */}
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Category</Text>
         <TouchableOpacity>
@@ -110,7 +165,6 @@ export default function HomeScreen({ route, navigation }) {
         ))}
       </ScrollView>
 
-      {/* Flash Sale */}
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Flash Sale</Text>
         <View style={styles.timerContainer}>
@@ -119,14 +173,12 @@ export default function HomeScreen({ route, navigation }) {
         </View>
       </View>
 
-      {/* Flash Sale Tabs */}
       <TabBar
         tabs={['All', 'Newest', 'Popular', 'Man', 'Woman', 'Kids']}
         selectedTab={selectedTab}
         onTabPress={setSelectedTab}
       />
 
-      {/* Flash Sale Products Grid */}
       <Products items={flashSaleItems} />
     </ScrollView>
   );
@@ -152,7 +204,7 @@ const styles = StyleSheet.create({
   locationText: {
     fontSize: 14,
     color: COLORS.textPrimary,
-    maxWidth: width * 0.4, // จำกัดความกว้างให้เป็นครึ่งจอ
+    maxWidth: width * 0.4,
     ellipsizeMode: 'tail'
   },
   notificationButton: {
@@ -164,8 +216,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bannerContainer: {
-    margin: 16,
+    width: width - 32,
     height: 180,
+    marginHorizontal: 16,
     borderRadius: 16,
     overflow: 'hidden',
   },
@@ -176,16 +229,20 @@ const styles = StyleSheet.create({
   bannerContent: {
     position: 'absolute',
     padding: 16,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
   },
   bannerTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: COLORS.textPrimary,
+    color: COLORS.textInverse,
     marginBottom: 8,
   },
   bannerSubtitle: {
-    fontSize: 14,
-    color: COLORS.textSecondary,
+    fontSize: 16,
+    color: COLORS.textInverse,
     marginBottom: 16,
   },
   shopNowButton: {
@@ -200,6 +257,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
+  pagination: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  paginationDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: COLORS.border,
+    marginHorizontal: 4,
+  },
+  paginationDotActive: {
+    backgroundColor: COLORS.primary,
+  },
+  // Rest of the styles remain the same...
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',

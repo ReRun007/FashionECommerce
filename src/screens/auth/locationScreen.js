@@ -39,7 +39,10 @@ export default function LocationScreen({ navigation }) {
                 screen: 'Home',
                 params: {
                     screen: 'MainHome',
-                    params: { address: address }
+                    params: { 
+                        address: address?.formattedAddress, // แก้ตรงนี้
+                        addressDetails: address // ส่ง object ทั้งหมดไปด้วย
+                    }
                 }
             });
         }, 300); 
@@ -90,7 +93,7 @@ export default function LocationScreen({ navigation }) {
                     <View style={styles.mapCard}>
                         <View style={styles.mapHeader}>
                             <Text style={styles.addressText} numberOfLines={2}>
-                                {address || 'Current Location'}
+                                {address?.formattedAddress || 'Current Location'}
                             </Text>
                             <TouchableOpacity
                                 style={styles.closeButton}
