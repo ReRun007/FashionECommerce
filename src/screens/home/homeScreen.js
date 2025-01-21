@@ -10,8 +10,8 @@ import Products from '../../components/product/products';
 const { width } = Dimensions.get('window');
 
 export default function HomeScreen({ route }) {
-  const { address } = route.params || {};
-  // console.log(address);
+  const { address } = route.params ?? { address: 'กรุณาเลือกที่อยู่' };  
+  console.log('route.params:', route.params);
   const [selectedTab, setSelectedTab] = useState('All');
 
   // ข้อมูลจำลองสำหรับ Category
@@ -59,7 +59,7 @@ export default function HomeScreen({ route }) {
       {/* Header with Location */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.locationButton}>
-          <Ionicons name="location-outline" size={24} color={COLORS.textPrimary} />
+          <Ionicons name="location" size={24} color={COLORS.primary} />
           <Text style={styles.locationText} numberOfLines={2}>{address}</Text>
           <Ionicons name="chevron-down" size={24} color={COLORS.textPrimary} />
         </TouchableOpacity>
@@ -69,10 +69,7 @@ export default function HomeScreen({ route }) {
       </View>
 
       {/* Search Bar */}
-      <SearchBar 
-      onSearch={(text) => console.log(text)}
-      onFilter={() => console.log('filter pressed')}
-    />
+      <SearchBar />
 
       {/* New Collection Banner */}
       <View style={styles.bannerContainer}>
@@ -81,13 +78,13 @@ export default function HomeScreen({ route }) {
           style={styles.bannerImage}
           resizeMode="cover"
         />
-        <View style={styles.bannerContent}>
+        {/* <View style={styles.bannerContent}>
           <Text style={styles.bannerTitle}>New Collection</Text>
           <Text style={styles.bannerSubtitle}>Discount 50% for{'\n'}the first transaction</Text>
           <TouchableOpacity style={styles.shopNowButton}>
             <Text style={styles.shopNowText}>Shop Now</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
 
       {/* Categories */}
@@ -120,10 +117,10 @@ export default function HomeScreen({ route }) {
 
       {/* Flash Sale Tabs */}
       <TabBar
-      tabs={['All', 'Newest', 'Popular', 'Man', 'Woman', 'Kids']}
-      selectedTab={selectedTab}
-      onTabPress={setSelectedTab}
-    />
+        tabs={['All', 'Newest', 'Popular', 'Man', 'Woman', 'Kids']}
+        selectedTab={selectedTab}
+        onTabPress={setSelectedTab}
+      />
 
       {/* Flash Sale Products Grid */}
       <Products items={flashSaleItems} />
@@ -152,8 +149,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.textPrimary,
     maxWidth: width * 0.4, // จำกัดความกว้างให้เป็นครึ่งจอ
-    ellipsizeMode: 'tail' 
-},
+    ellipsizeMode: 'tail'
+  },
   notificationButton: {
     width: 40,
     height: 40,
@@ -235,7 +232,7 @@ const styles = StyleSheet.create({
   categoryIcon: {
     width: 24,
     height: 24,
-    tintColor: COLORS.textPrimary,
+    tintColor: COLORS.primary,
   },
   categoryName: {
     fontSize: 12,

@@ -2,20 +2,31 @@ import React from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../../constants/colors';
+import { useNavigation } from '@react-navigation/native';
 
-const SearchBar = ({ onSearch, onFilter }) => {
+const SearchBar = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.searchContainer}>
-      <View style={styles.searchBar}>
-        <Ionicons name="search-outline" size={20} color={COLORS.textSecondary} />
+      <TouchableOpacity 
+        style={styles.searchBar}
+        activeOpacity={0.7}
+        onPress={() => navigation.navigate('Search')}
+      >
+        <Ionicons name="search-outline" size={20} color={COLORS.primary} />
         <TextInput
           style={styles.searchInput}
           placeholder="Search"
           placeholderTextColor={COLORS.textSecondary}
-          onChangeText={onSearch}
+          editable={false} 
+          pointerEvents="none" 
         />
-      </View>
-      <TouchableOpacity style={styles.filterButton} onPress={onFilter}>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        style={styles.filterButton} 
+        onPress={() => navigation.navigate('Search')}
+      >
         <Ionicons name="options-outline" size={20} color={COLORS.background} />
       </TouchableOpacity>
     </View>

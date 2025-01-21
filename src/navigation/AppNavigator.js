@@ -24,20 +24,32 @@ import ChatScreen from '../screens/chat/chatScreen';
 
 // Import navigation options
 import { tabScreenOptions } from './tabNavigator';
+import SearchScreen from '../screens/home/searchScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 
+
+
 function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={tabScreenOptions}>
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeNavigator} />
       <Tab.Screen name="Cart" component={CartScreen} />
       <Tab.Screen name="Wishlist" component={WishlistScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
+  );
+}
+
+function HomeNavigator() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="MainHome" component={HomeScreen} />
+      <Stack.Screen name="Search" component={SearchScreen} />
+    </Stack.Navigator>
   );
 }
 

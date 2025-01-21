@@ -35,7 +35,13 @@ export default function LocationScreen({ navigation }) {
     const handleConfirmLocation = () => {
         setShowModal(false);
         setTimeout(() => {
-            navigation.navigate('MainApp', { screen: 'Home', params: { address: address } });
+            navigation.navigate('MainApp', {
+                screen: 'Home',
+                params: {
+                    screen: 'MainHome',
+                    params: { address: address }
+                }
+            });
         }, 300); 
     };
 

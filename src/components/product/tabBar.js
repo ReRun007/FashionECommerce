@@ -42,8 +42,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 16,
-    backgroundColor: COLORS.surfaceLight,
     marginRight: 8, // เพิ่ม margin ระหว่าง tab
+    borderWidth: 1,
+    borderColor: COLORS.border,
   },
   selectedTab: {
     backgroundColor: COLORS.primary,
