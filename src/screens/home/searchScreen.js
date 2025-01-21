@@ -1,8 +1,10 @@
+// screens/search/searchScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { COLORS } from '../../constants/colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import BackButton from '../../components/common/backButton';
+import SearchInput from '../../components/common/searchInput';
 
 export default function SearchScreen() {
   const [searchText, setSearchText] = useState('');
@@ -27,17 +29,12 @@ export default function SearchScreen() {
 
       {/* Search Input */}
       <View style={styles.searchContainer}>
-        <View style={styles.searchInputContainer}>
-          <Ionicons name="search-outline" size={20} color={COLORS.textSecondary} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search"
-            placeholderTextColor={COLORS.textSecondary}
-            value={searchText}
-            onChangeText={setSearchText}
-            autoFocus={true}
-          />
-        </View>
+        <SearchInput
+          value={searchText}
+          onChangeText={setSearchText}
+          onClear={() => setSearchText('')}
+          autoFocus={true}
+        />
       </View>
 
       {/* Recent Searches */}
@@ -56,11 +53,11 @@ export default function SearchScreen() {
               style={styles.recentItem}
             >
               <View style={styles.recentItemLeft}>
-                <Ionicons name="time-outline" size={20} color={COLORS.textSecondary} />
+                <Icon name="time-outline" size={20} color={COLORS.textSecondary} />
                 <Text style={styles.recentItemText}>{item}</Text>
               </View>
               <TouchableOpacity>
-                <Ionicons name="close-outline" size={20} color={COLORS.textSecondary} />
+                <Icon name="close-outline" size={20} color={COLORS.textSecondary} />
               </TouchableOpacity>
             </TouchableOpacity>
           ))}
@@ -91,20 +88,6 @@ const styles = StyleSheet.create({
   searchContainer: {
     paddingHorizontal: 16,
     marginBottom: 16,
-  },
-  searchInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    height: 46,
-    backgroundColor: COLORS.surfaceLight,
-    borderRadius: 23,
-    gap: 8,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 14,
-    color: COLORS.textPrimary,
   },
   recentContainer: {
     flex: 1,

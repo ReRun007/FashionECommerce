@@ -49,6 +49,7 @@ function HomeNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainHome" component={HomeScreen} />
       <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name='EnterLocation' component={EnterLocationScreen} />
     </Stack.Navigator>
   );
 }

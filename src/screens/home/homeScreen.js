@@ -9,9 +9,13 @@ import Products from '../../components/product/products';
 
 const { width } = Dimensions.get('window');
 
-export default function HomeScreen({ route }) {
-  const { address } = route.params ?? { address: 'กรุณาเลือกที่อยู่' };  
-  console.log('route.params:', route.params);
+export default function HomeScreen({ route, navigation }) {
+
+  const { address, addressDetails } = route.params ?? { 
+    address: 'กรุณาเลือกที่อยู่',
+    addressDetails: null
+};
+  console.log('HomeScreen route params:', route.params);
   const [selectedTab, setSelectedTab] = useState('All');
 
   // ข้อมูลจำลองสำหรับ Category
@@ -58,7 +62,7 @@ export default function HomeScreen({ route }) {
     <ScrollView style={styles.container}>
       {/* Header with Location */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.locationButton}>
+        <TouchableOpacity style={styles.locationButton} onPress={() => navigation.navigate('EnterLocation')}>
           <Ionicons name="location" size={24} color={COLORS.primary} />
           <Text style={styles.locationText} numberOfLines={2}>{address}</Text>
           <Ionicons name="chevron-down" size={24} color={COLORS.textPrimary} />
