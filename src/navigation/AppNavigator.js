@@ -6,25 +6,25 @@ import { StatusBar } from 'react-native';
 import { COLORS } from '../constants/colors';
 
 // Import screens - Auth
-import LoginScreen from '../screens/auth/loginScreen';
-import RegisterScreen from '../screens/auth/registerScreen';
-import VerifyScreen from '../screens/auth/verifyScreen';
-import NewPasswordScreen from '../screens/auth/newPasswordScreen';
-import CompleteProfileScreen from '../screens/auth/completeProfileScreen';
-import LocationScreen from '../screens/auth/locationScreen';
-import EnterLocationScreen from '../screens/auth/enterLocationScreen';
+import LoginScreen from '../screens/auth/login';
+import RegisterScreen from '../screens/auth/register';
+import VerifyScreen from '../screens/auth/verify';
+import NewPasswordScreen from '../screens/auth/newPassword';
+import CompleteProfileScreen from '../screens/auth/completeProfile';
+import LocationScreen from '../screens/auth/location';
+import EnterLocationScreen from '../screens/auth/enterLocation';
 
 
 // Import screens - Main App
-import HomeScreen from '../screens/home/homeScreen';
-import CartScreen from '../screens/cart/cartScreen';
-import WishlistScreen from '../screens/product/wishlistScreen';
-import ProfileScreen from '../screens/profile/profileScreen';
-import ChatScreen from '../screens/chat/chatScreen';
+import HomeScreen from '../screens/home/home';
+import CartScreen from '../screens/cart/cart';
+import WishlistScreen from '../screens/product/wishlist';
+import ProfileScreen from '../screens/profile/profile';
+import ChatScreen from '../screens/chat/chat';
 
 // Import navigation options
 import { tabScreenOptions } from './tabNavigator';
-import SearchScreen from '../screens/home/searchScreen';
+import SearchScreen from '../screens/home/search';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
