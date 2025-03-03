@@ -2,18 +2,27 @@ import React from 'react';
 import { View, TouchableOpacity, Image, Text, StyleSheet, Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../../constants/colors';
+import { useNavigation } from '@react-navigation/native';
+import HeartButton from '../common/heartButton';
 
 const { width } = Dimensions.get('window');
 
 const Products = ({ items }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.productsGrid}>
       {items.map((item) => (
-        <TouchableOpacity key={item.id} style={styles.productCard}>
+        <TouchableOpacity 
+          key={item.id} 
+          style={styles.productCard} 
+          onPress={() => navigation.navigate('ProductDetails', { 
+            productId: item.id,
+            product: item // ส่งข้อมูลสินค้าไปด้วย
+          })}
+        >
           <Image source={item.image} style={styles.productImage} />
-          <TouchableOpacity style={styles.heartButton}>
-            <Ionicons name="heart-outline" size={20} color={COLORS.textPrimary} />
-          </TouchableOpacity>
+          <HeartButton style={styles.heartButton} />
           <View style={styles.productInfo}>
             <Text style={styles.productName}>{item.name}</Text>
             <View style={styles.productDetails}>
@@ -52,12 +61,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 8,
     right: 8,
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: COLORS.background,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   productInfo: {
     padding: 12,

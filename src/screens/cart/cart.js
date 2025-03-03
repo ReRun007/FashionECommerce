@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Button from '../../components/common/button';
 import { useState } from 'react';
 
-export default function CartScreen({ navigation }) {
+export default function Cart({ navigation }) {
 
   const [isLoading, setIsLoading] = useState(false);
 

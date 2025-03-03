@@ -8,7 +8,7 @@ import Products from '../../components/product/products';
 
 const { width } = Dimensions.get('window');
 
-export default function HomeScreen({ route, navigation }) {
+export default function Home({ route, navigation }) {
   const { address, addressDetails } = route.params ?? { 
     address: 'กรุณาเลือกที่อยู่',
     addressDetails: null
@@ -86,13 +86,6 @@ export default function HomeScreen({ route, navigation }) {
         style={styles.bannerImage}
         resizeMode="cover"
       />
-      <View style={styles.bannerContent}>
-        <Text style={styles.bannerTitle}>{item.title}</Text>
-        <Text style={styles.bannerSubtitle}>{item.subtitle}</Text>
-        <TouchableOpacity style={styles.shopNowButton}>
-          <Text style={styles.shopNowText}>Shop Now</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 
@@ -308,8 +301,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   categoryIcon: {
-    width: 24,
-    height: 24,
+    width: 36,
+    height: 36,
     tintColor: COLORS.primary,
   },
   categoryName: {

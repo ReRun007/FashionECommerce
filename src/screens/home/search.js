@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import BackButton from '../../components/common/backButton';
 import SearchInput from '../../components/common/searchInput';
 
-export default function SearchScreen() {
+export default function Search() {
   const [searchText, setSearchText] = useState('');
   const recentSearches = [
     'Blue Shirt',

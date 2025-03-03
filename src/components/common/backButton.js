@@ -12,15 +12,15 @@ export default function BackButton() {
       style={styles.button}
       onPress={() => navigation.goBack()}
     >
-      <Ionicons name="arrow-back" size={24} color={COLORS.textPrimary} />
+      <Ionicons name="arrow-back" size={18} color={COLORS.textPrimary} />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    width: 40,
-    height: 40,
+    width: 36,
+    height: 36,
     borderRadius: 20,
     backgroundColor: COLORS.background,
     justifyContent: 'center',

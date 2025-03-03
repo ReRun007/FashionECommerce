@@ -14,7 +14,7 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.01;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-export default function EnterLocationScreen({ navigation }) {
+export default function EnterLocation({ navigation }) {
     const [searchText, setSearchText] = useState('');
     const [showMap, setShowMap] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState(null);

@@ -5,7 +5,7 @@ import Button from '../../components/common/button';
 import Input from '../../components/common/input';
 import BackButton from '../../components/common/backButton';
 
-export default function NewPasswordScreen({ navigation }) {
+export default function NewPassword({ navigation }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -42,7 +42,7 @@ export default function NewPasswordScreen({ navigation }) {
             title="Create New Password"
             onPress={() => {
               // เพิ่มตรวจสอบ password และ confirmPassword ตรงกัน
-              navigation.navigate('LoginScreen');
+              navigation.navigate('Login');
             }}
           />
         </View>

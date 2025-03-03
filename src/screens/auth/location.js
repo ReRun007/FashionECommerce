@@ -12,7 +12,7 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.001;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-export default function LocationScreen({ navigation }) {
+export default function Location({ navigation }) {
     const { loading, location, address, requestLocationPermission } = useLocation();
     const [showModal, setShowModal] = useState(false);
     

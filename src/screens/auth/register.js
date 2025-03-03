@@ -8,7 +8,7 @@ import Checkbox from 'expo-checkbox';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import GoogleLogo from '../../components/common/googleLogo';
 
-export default function RegisterScreen({ navigation }) {
+export default function Register({ navigation }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

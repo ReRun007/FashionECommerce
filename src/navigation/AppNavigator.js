@@ -6,25 +6,27 @@ import { StatusBar } from 'react-native';
 import { COLORS } from '../constants/colors';
 
 // Import screens - Auth
-import LoginScreen from '../screens/auth/login';
-import RegisterScreen from '../screens/auth/register';
-import VerifyScreen from '../screens/auth/verify';
-import NewPasswordScreen from '../screens/auth/newPassword';
-import CompleteProfileScreen from '../screens/auth/completeProfile';
-import LocationScreen from '../screens/auth/location';
-import EnterLocationScreen from '../screens/auth/enterLocation';
+import Login from '../screens/auth/login';
+import Register from '../screens/auth/register';
+import Verify from '../screens/auth/verify';
+import NewPassword from '../screens/auth/newPassword';
+import CompleteProfile from '../screens/auth/completeProfile';
+import Location from '../screens/auth/location';
+import EnterLocation from '../screens/auth/enterLocation';
 
 
 // Import screens - Main App
-import HomeScreen from '../screens/home/home';
-import CartScreen from '../screens/cart/cart';
-import WishlistScreen from '../screens/product/wishlist';
-import ProfileScreen from '../screens/profile/profile';
-import ChatScreen from '../screens/chat/chat';
+import Home from '../screens/home/home';
+import Cart from '../screens/cart/cart';
+import Wishlist from '../screens/product/wishlist';
+import Profile from '../screens/profile/profile';
+import Chat from '../screens/chat/chat';
+import Search from '../screens/home/search';
+import ProductDetails from '../screens/product/productDetails';
+
 
 // Import navigation options
 import { tabScreenOptions } from './tabNavigator';
-import SearchScreen from '../screens/home/search';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -36,10 +38,10 @@ function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={tabScreenOptions}>
       <Tab.Screen name="Home" component={HomeNavigator} />
-      <Tab.Screen name="Cart" component={CartScreen} />
-      <Tab.Screen name="Wishlist" component={WishlistScreen} />
-      <Tab.Screen name="Chat" component={ChatScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Cart" component={Cart} />
+      <Tab.Screen name="Wishlist" component={Wishlist} />
+      <Tab.Screen name="Chat" component={Chat} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }
@@ -47,9 +49,10 @@ function TabNavigator() {
 function HomeNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MainHome" component={HomeScreen} />
-      <Stack.Screen name="Search" component={SearchScreen} />
-      <Stack.Screen name='EnterLocation' component={EnterLocationScreen} />
+      <Stack.Screen name="MainHome" component={Home} />
+      <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen name='EnterLocation' component={EnterLocation} />
+      <Stack.Screen name="ProductDetails" component={ProductDetails} />
     </Stack.Navigator>
   );
 }
@@ -57,13 +60,13 @@ function HomeNavigator() {
 function AuthNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="Verify" component={VerifyScreen} />
-      <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
-      <Stack.Screen name="CompleteProfile" component={CompleteProfileScreen} />
-      <Stack.Screen name='Location' component={LocationScreen} /> 
-      <Stack.Screen name="EnterLocation" component={EnterLocationScreen} /> 
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Verify" component={Verify} />
+      <Stack.Screen name="NewPassword" component={NewPassword} />
+      <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
+      <Stack.Screen name='Location' component={Location} /> 
+      <Stack.Screen name="EnterLocation" component={EnterLocation} /> 
     </Stack.Navigator>
   );
 }

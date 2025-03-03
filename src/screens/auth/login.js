@@ -7,7 +7,7 @@ import { COLORS } from '../../constants/colors';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import GoogleLogo from '../../components/common/googleLogo';
 
-export default function LoginScreen({ navigation }) {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

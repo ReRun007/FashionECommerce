@@ -7,7 +7,7 @@ import Button from '../../components/common/button';
 import Input from '../../components/common/input';
 import BackButton from '../../components/common/backButton';
 
-export default function CompleteProfileScreen({ navigation }) {
+export default function CompleteProfile({ navigation }) {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState('+66');
@@ -27,14 +27,14 @@ export default function CompleteProfileScreen({ navigation }) {
         </Text>
       </View>
 
-      <View style={styles.avatarContainer}>
+      <TouchableOpacity style={styles.avatarContainer}>
         <View style={styles.avatar}>
           <Ionicons name="person" size={40} color={COLORS.textSecondary} />
-          <TouchableOpacity style={styles.editButton}>
+          <View style={styles.editButton}>
             <Ionicons name="pencil" size={16} color={COLORS.background} />
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={styles.form}>
         <Input
